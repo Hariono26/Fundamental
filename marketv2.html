@@ -1,0 +1,43 @@
+<script>
+    let apel = 10_000
+    let anggur = 15_000
+    let jeruk = 20_000
+
+    let stok_apel = 12
+    let stok_anggur = 12
+    let stok_jeruk = 12
+
+
+    let qty_apel = +prompt(`🍎Apel = Rp ${apel.toLocaleString()}/buah. Stok Apel masih ${stok_apel} buah. Berapa jumlah Apel yang ingin dibeli`)
+    if(qty_apel > stok_apel) {
+        qty_apel = stok_apel,
+        alert(`tukumu kakean bos, Apelku cuma onok ${stok_apel} buah`)
+    }
+    let qty_anggur = +prompt(`🍇Anggur = Rp ${anggur.toLocaleString()}/buah. Stok Anggur masih ${stok_anggur} buah.Berapa jumlah Anggur yang ingin dibeli`)
+    if(qty_anggur > stok_anggur) {
+        qty_anggur = stok_anggur,
+        alert(`tukumu kakean bos, Anggurku cuma onok ${stok_anggur} buah`)
+    }
+    let qty_jeruk = +prompt(`🍊Jeruk = Rp ${jeruk.toLocaleString()}/buah. Stok Jeruk masih ${stok_jeruk} buah. Berapa jumlah Jeruk yang ingin dibeli`)
+    if(qty_jeruk > stok_jeruk) {
+        qty_jeruk = stok_jeruk,
+        alert(`tukumu kakean bos, Jerukku cuma onok ${stok_jeruk} buah`)
+    }
+    // console.log(qty_apel, qty_jeruk, qty_anggur, typeof qty) 
+
+    alert(`List belanja anda:
+    1. 🍎Apel, Rp${apel.toLocaleString()} x ${qty_apel} = Rp${(apel*qty_apel).toLocaleString()}
+    2. 🍇Anggur, Rp${anggur.toLocaleString()} x ${qty_anggur} = Rp${(anggur*qty_anggur).toLocaleString()}
+    3. 🍊Jeruk, Rp${jeruk.toLocaleString()} x ${qty_jeruk} = Rp${(jeruk*qty_jeruk).toLocaleString()}
+    Total belanja anda : Rp${((apel*qty_apel) + (anggur*qty_anggur) + (jeruk*qty_jeruk)).toLocaleString()}
+    `)
+
+    let pembayaran = +prompt (`Silahkan masukkan nominal pembayaran Anda!`)
+    if (pembayaran > (apel*qty_apel) + (anggur*qty_anggur) + (jeruk*qty_jeruk)) {
+        alert (`Maturnuwun, Artone njengenan Rp${pembayaran.toLocaleString()}. Wangsulipun Rp${(pembayaran - ((apel*qty_apel) + (anggur*qty_anggur) + (jeruk*qty_jeruk))).toLocaleString()}`)
+    } else if (pembayaran < (apel*qty_apel) + (anggur*qty_anggur) + (jeruk*qty_jeruk)) {
+        alert (`Piye to kiihhh, kurang bos duike samean cuma Rp${pembayaran.toLocaleString()}. ijik kurang Rp${(((apel*qty_apel) + (anggur*qty_anggur) + (jeruk*qty_jeruk)) - pembayaran).toLocaleString()}`)
+    } else if (pembayaran = (apel*qty_apel) + (anggur*qty_anggur) + (jeruk*qty_jeruk)) {
+        alert (`Maturnuwun, Artone sampun pas mantap`)
+    }
+</script>
