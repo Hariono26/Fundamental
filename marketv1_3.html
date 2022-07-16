@@ -1,0 +1,54 @@
+<script>
+    let apel = 10_000
+    let anggur = 15_000
+    let jeruk = 20_000
+
+    let stok_apel = 5
+    let stok_anggur = 5
+    let stok_jeruk = 5
+
+    let total_price = 0
+
+
+    let qty_apel = +prompt(`🍎Apel = Rp ${apel.toLocaleString()}/buah. Stok Apel masih ${stok_apel} buah. Berapa jumlah Apel yang ingin dibeli`)
+    for ( ; qty_apel > stok_apel; ) {
+        alert(`tukumu kakean bos, Apelku cuma onok ${stok_apel} buah. Ayo diisi maneh seng bener`)
+        qty_apel = +prompt(`🍎Apel = Rp ${apel.toLocaleString()}/buah. Stok Apel masih ${stok_apel} buah. Berapa jumlah Apel yang ingin dibeli`)
+    }
+    let qty_anggur = +prompt(`🍇Anggur = Rp ${anggur.toLocaleString()}/buah. Stok Anggur masih ${stok_anggur} buah.Berapa jumlah Anggur yang ingin dibeli`)
+    for ( ; qty_anggur > stok_anggur; ) {
+        alert(`tukumu kakean bos, Anggurku cuma onok ${stok_anggur} buah. Ayo diisi maneh seng bener`)
+        qty_anggur = +prompt(`🍇Anggur = Rp ${anggur.toLocaleString()}/buah. Stok Anggur masih ${stok_anggur} buah. Berapa jumlah Anggur yang ingin dibeli`)
+    }
+    let qty_jeruk = +prompt(`🍊Jeruk = Rp ${jeruk.toLocaleString()}/buah. Stok Jeruk masih ${stok_jeruk} buah. Berapa jumlah Jeruk yang ingin dibeli`)
+    for ( ; qty_jeruk > stok_jeruk; ) {
+        alert(`tukumu kakean bos, Jerukku cuma onok ${stok_jeruk} buah. Ayo diisi maneh seng bener`)
+        qty_jeruk = +prompt(`🍊Apel = Rp ${jeruk.toLocaleString()}/buah. Stok Jeruk masih ${stok_jeruk} buah. Berapa jumlah Jeruk yang ingin dibeli`)
+    }
+    // console.log(qty_apel, qty_jeruk, qty_anggur, typeof qty) 
+
+    total_price += (apel*qty_apel) + (anggur*qty_anggur) + (jeruk*qty_jeruk)
+
+    let pembayaran = +prompt(`List belanja anda:
+    1. 🍎Apel, Rp${apel.toLocaleString()} x ${qty_apel} = Rp${(apel*qty_apel).toLocaleString()}
+    2. 🍇Anggur, Rp${anggur.toLocaleString()} x ${qty_anggur} = Rp${(anggur*qty_anggur).toLocaleString()}
+    3. 🍊Jeruk, Rp${jeruk.toLocaleString()} x ${qty_jeruk} = Rp${(jeruk*qty_jeruk).toLocaleString()}
+    Total belanja anda : Rp${total_price.toLocaleString()}
+    Tolong input nominal uang untuk pembayaran:`)
+
+    for (;pembayaran < total_price;) {
+        alert (`Piye to kiihhh, kurang bos duike samean cuma Rp${pembayaran.toLocaleString()}. ijik kurang Rp${(total_price - pembayaran).toLocaleString()}. Diisi maneh seng bener Bos!`)
+        pembayaran = +prompt(`List belanja anda:
+    1. 🍎Apel, Rp${apel.toLocaleString()} x ${qty_apel} = Rp${(apel*qty_apel).toLocaleString()}
+    2. 🍇Anggur, Rp${anggur.toLocaleString()} x ${qty_anggur} = Rp${(anggur*qty_anggur).toLocaleString()}
+    3. 🍊Jeruk, Rp${jeruk.toLocaleString()} x ${qty_jeruk} = Rp${(jeruk*qty_jeruk).toLocaleString()}
+    Total belanja anda : Rp${total_price.toLocaleString()}
+    Tolong input nominal uang untuk pembayaran:`)
+    }
+    
+    if (pembayaran > total_price) {
+        alert (`Maturnuwun, Artone njengenan Rp${pembayaran.toLocaleString()}. Wangsulipun Rp${(pembayaran - total_price).toLocaleString()}`)
+    } else if (pembayaran == total_price) {
+        alert (`Maturnuwun, Artone sampun pas mantap`)
+    }
+</script>
