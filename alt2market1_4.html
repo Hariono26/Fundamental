@@ -1,0 +1,41 @@
+<script>
+    let Buah = [[`Khuldi`, 100000, 10], [`Gomu-Gomu`, 50000, 10], [`Ceplu'an`, 25000, 10]]
+    let keranjang = 0 
+
+    let Home = +prompt(`Sugeng Rawuh Dateng Toko Buah "OPO KIHH??"
+    1. Buah opo ae seng tak dol?
+    2. Nambah Buah
+    3. Hapus Buah
+    4. Tuku Buah
+    5. Gak Sido`)
+
+    for( ;Home = 1; ) {
+        alert(`Iki bos buah seng tak dol:
+        1. Buah ${Buah[0][0]}. Harga: ${Buah[0][1].toLocaleString()}/kg. Stock: ${Buah[0][2]} buah.
+        2. Buah ${Buah[1][0]}. Harga: ${Buah[1][1].toLocaleString()}/kg. Stock: ${Buah[1][2]} buah.
+        3. Buah ${Buah[2][0]}. Harga: ${Buah[2][1].toLocaleString()}/kg. Stock: ${Buah[2][2]} buah.`)
+        
+        Home = +prompt(`Sugeng Rawuh Dateng Toko Buah "OPO KIHH??"
+        1. Buah opo ae seng tak dol?
+        2. Nambah Buah
+        3. Hapus Buah
+        4. Tuku Buah
+        5. Gak Sido`)
+    }
+
+    for(;Home == 6;) {
+        alert(`piye to kihhh, gak enek nomer 6 bos`)
+        Home = +prompt(`Sugeng Rawuh Dateng Toko Buah "OPO KIHH??"
+        1. Buah opo ae seng tak dol?
+        2. Nambah Buah
+        3. Hapus Buah
+        4. Tuku Buah
+        5. Gak Sido`)
+    }
+
+    
+
+
+
+   
+</script>

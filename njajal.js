@@ -14,3 +14,10 @@ for (i = 0; i < kategori.length; i++) {
     info += `${i + 1}. ` + kategori[i] + `\n`
 }
 console.log(info)
+
+let player = [[`Ronaldo`, `Penyerang`, `37`],[`De Gea`, `Kiper`, `31`],[`Bruno`, `Gelandang`, `26`]]
+let daftarplayer = `Daftar Pemain Manchester United : \n`
+for(let x = 0; x < player.length; x++) {
+    daftarplayer += `${x + 1}. ${player[x][0]}, ${player[x][1]}, ${player[x][2]}\n`
+}
+console.log(daftarplayer)

@@ -85,11 +85,11 @@ let j = [[1, 2], [3,5], [[5, 6, [9, 10]], 7, 8]]
 // console.log(j[2][0][2][1]) // how to get item 10
 
 // LOOP WITH ARRAY
-let kategori = [`demit`, `laser`, `bacokbacokan`, `tarung`, `kartun`]
-let info = `onok ${kategori.length} pilm: \n`
-for (i = 0; i < kategori.length; i++) {
-    info += kategori[i] + `\n`
-}
+// let kategori = [`demit`, `laser`, `bacokbacokan`, `tarung`, `kartun`]
+// let info = `onok ${kategori.length} pilm: \n`
+// for (i = 0; i < kategori.length; i++) {
+//     info += kategori[i] + `\n`
+// }
 // console.log(info)
 
 let player = [[`Ronaldo`, `Penyerang`, `37`],[`De Gea`, `Kiper`, `31`],[`Bruno`, `Gelandang`, `26`]]
@@ -106,7 +106,6 @@ for(let x = 0; x < player.length; x++) {
         }
     }
 }
-
 console.log(daftarplayer)
 
   
