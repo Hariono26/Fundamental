@@ -39,4 +39,10 @@ class Produk {
     }
 }
 
+let indexEdit = null
+
+let keranjang = []
+
+let totalHarga = 0
+
 

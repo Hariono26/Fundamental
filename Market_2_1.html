@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market V2.0</title>
+</head>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    #tabel-input td {
+        padding: 10px;
+    }
+    #tabel-data {
+        width: 70%;
+    }
+    #tabel-keranjang {
+        width: 50%;
+    }
+</style>
+<body>
+    <center>
+        <h1>MARKET V2.0</h1>
+    </center>
+    <fieldset>
+        <legend><b>Filter</b></legend>
+        <label>Nama: </label>
+        <input type="text" id="filter-nama" oninput="filter()">
+        <br><br>
+        <label>Harga: </label>
+        <input type="number" id="filter-harga1" oninput="filter()">
+        <label> - </label>
+        <input type="number" id="filter-harga2" oninput="filter()">
+        <br><br>
+        <label>Kategori: </label>
+        <select id="filter-kategori" onchange="filter()">
+            <option value="Semua">Semua</option>
+            <option value="Makanan">Makanan</option>
+            <option value="Elektronik">Elektronik</option>
+            <option value="Pakaian">Pakaian</option>
+            <option value="Buah">Buah</option>
+        </select>
+        <br><br>
+        <button onclick="reset()">Reset</button>
+    </fieldset>
+    <fieldset>
+        <legend><b>Input Data</b></legend>
+        <table id="tabel-input">
+            <tr>
+                <td>
+                    <input type="text" id="input-nama" placeholder="Nama">
+                </td>
+                <td>
+                    <input type="text" id="input-harga" placeholder="Harga">
+                </td>
+                <td>
+                    <select id="input-kategori">
+                        <option value="Semua">Semua</option>
+                        <option value="Makanan">Makanan</option>
+                        <option value="Elektronik">Elektronik</option>
+                        <option value="Pakaian">Pakaian</option>
+                        <option value="Buah">Buah</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" id="input-stok" placeholder="stok">
+                </td>
+            </tr>
+        </table>
+        <br>
+        <button onclick="inputData()">Input</button>
+    </fieldset>
+    <fieldset>
+        <legend><b>Tabel Data</b></legend>
+        <table id="tabel-data">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Kategori</th>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Beli</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tabel-data-body"></tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend><b>Keranjang</b></legend>
+        <table id="tabel-keranjang">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Kategori</th>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-keranjang"></tbody>
+        </table>
+        <br>
+        <button onclick="pembayaran()">Pembayaran</button>
+    </fieldset>
+    <fieldset>
+        <legend><b>Pembayaran</b></legend>
+        <h2>Rincian Transaksi</h2>
+        <div id="rincian"></div>
+    </fieldset>
+</body>
+<script src="./Database.js"></script>
+<script>
+    let showData = (data) => {
+        let tbody = document.getElementById(`tabel-data-body`)
+        let res = ``
+        data.forEach((item, index) => {
+            if(index === indexEdit) {
+                res += `
+                <tr>
+                    <td><center>${item.id}</center></td>
+                    <td><center>${item.kategori}</center></td>
+                    <td><input type="text" id="edit-nama" value="${item.nama}"></td>
+                    <td><input type="number" id="edit-harga" value="${item.harga}"></td>
+                    <td><input type="number" id="edit-stok" value="${item.stok}"></td>
+                    <td><center><button disabled>Tambah</button></center></td>
+                    <td><center><button onclick="saveEdit(${index})">Simpan</button></center></td>
+                    <td><center><button onclick="cancelEdit()">Batal</button><center></td>
+                </tr>`  
+            } else {
+                res += `
+                <tr>
+                    <td><center>${item.id}</center></td>
+                    <td><center>${item.kategori}</center></td>
+                    <td><center>${item.nama}</center></td>
+                    <td><center>Rp.${parseInt(item.harga).toLocaleString()}</center></td>
+                    <td><center>${item.stok}</center></td>
+                    <td><center><button onclick="tambah(${index})">Tambah</button></center></td>
+                    <td><center><button onclick="hapus(${index})">Hapus</button></center></td>
+                    <td><center><button onclick="edit(${index})">Edit</button></center></td>
+                </tr>`
+            }
+        })
+        tbody.innerHTML = res
+    }
+    showData(produk)
+
+    let inputData = () => {
+        let inputNama = document.getElementById(`input-nama`).value
+        let inputHarga = +document.getElementById(`input-harga`).value
+        let inputKategori = document.getElementById(`input-kategori`).value
+        let inputStok = +document.getElementById(`input-stok`).value
+        let inputId = Date.now()
+        // console.log(inputNama, inputHarga, inputKategori, inputStok, inputId)
+        produk.push(new Produk(inputId, inputKategori, inputNama, inputHarga, inputStok))
+        showData(produk)
+    }
+
+    let reset = () => {
+        showData(produk)
+        document.getElementById(`filter-nama`).value = ``
+        document.getElementById(`filter-harga1`).value = ``
+        document.getElementById(`filter-harga2`).value = ``
+        document.getElementById(`filter-kategori`).value = `Semua`
+    }
+</script>
+<script src="./Filter.js"></script>
+<script>
+    let edit = (index) => {
+        indexEdit = index
+        showData(produk)
+    }
+    let cancelEdit = () => {
+        indexEdit = null
+        showData(produk)
+    }
+    let hapus = (index) => {
+        let konfirmasiHapus = confirm(`Apakah Anda yakin ingin menghapus ${produk[index].nama} dari daftar?`)
+        if(konfirmasiHapus) {
+            produk.splice(index, 1)
+            showData(produk)
+        } else {
+            showData(produk)
+        }
+    }
+    let saveEdit = (index) => {
+        let newNama = document.getElementById(`edit-nama`).value
+        let newHarga = document.getElementById(`edit-harga`).value
+        let newStok = document.getElementById(`edit-stok`).value
+        // let newId = Date.now()
+        let konfirmasiEdit = confirm(`Apakah Anda yakin ingin menyimpan perubahan`)
+        if (konfirmasiEdit) {
+            produk[index].nama = newNama
+            produk[index].harga = newHarga
+            produk[index].stok = newStok
+            // produk[index].id = newId -> jika ganti ID setiap kali edit data
+            indexEdit = null
+            showData(produk)
+        } else {
+            showData(produk)
+        }
+    }
+
+    let showKeranjang = () => {
+        let tbody = document.getElementById(`tbody-keranjang`)
+        let res = ``
+        keranjang.forEach((item, index) => {
+            res += `
+            <tr>
+                <td><center>${item.id}</center></td>
+                <td><center>${item.kategori}</center></td>
+                <td><center>${item.nama}</center></td>
+                <td><center>Rp.${parseInt(item.harga).toLocaleString()}</center></td>
+                <td><center>${item.jumlah}</center></td>
+                <td><center><button onclick="hapusKeranjang()">Hapus</button></center></td>
+            </tr>`
+        })
+        tbody.innerHTML = res
+    }
+
+    let tambah = (index) => {
+        // let produkTerpilih = produk[index]
+        let produkTerpilih = {...produk[index]}
+
+        let ada = null
+        keranjang.forEach(item => {
+            if(item.nama === produkTerpilih.nama) {
+                ada = 1
+            }
+        })
+        if(ada === 1) {
+            keranjang.forEach(item => {
+                if(item.nama === produkTerpilih.nama) {
+                    item.jumlah += 1
+                }
+            })
+        } else {
+            produkTerpilih.jumlah = 1 // menambahkan property jumlah
+            delete produkTerpilih.stok // menghapus property stok
+    
+            keranjang.push(produkTerpilih)
+        }
+        produk[index].stok -= 1
+
+        showData(produk)
+        showKeranjang()
+    }
+
+    let hapusKeranjang = (index) => {
+        keranjang.splice(index, 1)
+        showKeranjang()
+    }
+
+    let pembayaran = () => {
+        let div = document.getElementById(`rincian`)
+
+        let res = ``
+        keranjang.forEach(item => {
+            let totalPerProduk = item.harga * item.jumlah
+            totalHarga += totalPerProduk
+            res += `
+            <p>${item.kategori} | ${item.nama} | Rp.${(item.harga).toLocaleString()} x ${item.jumlah} = Rp.${(item.harga * item.jumlah).toLocaleString()}</p>
+            `
+        })
+        res += `<b>Sub Total = Rp.${totalHarga.toLocaleString()}</b><br><br>`
+        res += `<b>PPn = Rp.${(totalHarga / 10).toLocaleString()}</b><br><br>`
+        res += `<b>Total = Rp.${(totalHarga + (totalHarga / 10)).toLocaleString()}</b>`
+        div.innerHTML = res
+    }
+</script>
+</html>
