@@ -45,4 +45,6 @@ let keranjang = []
 
 let totalHarga = 0
 
+let bayar = false
+
 
