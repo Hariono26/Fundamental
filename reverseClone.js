@@ -7,7 +7,7 @@ let revClone = (input) => {
         for(let j = 0; j < res.length; j++) {
             if(res[j] < res[j+1]) {
                 a = res[j]
-                res[j] =res[j+1]
+                res[j] = res[j+1]
                 res[j+1] = a
             }
         }

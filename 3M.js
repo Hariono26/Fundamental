@@ -7,7 +7,7 @@ let mean = (arr) => {
 let median = (arr) => {
     let sortArr = arr.sort()
     let res
-    if(sortArr.length % 2 == 0) {
+    if(sortArr.length % 2 !== 0) {
         let ind = Math.round(sortArr.length / 2) - 1
         res = arr[ind]
     } else {
@@ -18,8 +18,8 @@ let median = (arr) => {
 } 
 
 let mode = (arr) => {
-    let total = 0
-    let res
+    let total = 0 
+    let res 
 
     arr.forEach(element => {
         let count = 0
